@@ -123,7 +123,9 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
             this.detailItemBinding = detailItemBinding;
             this.itemClickListener = itemClickListener;
 
+            //Set view that implement click
             detailItemBinding.imageDownload.setOnClickListener(this);
+            detailItemBinding.imageDesc.setOnClickListener(this);
         }
 
         @Override

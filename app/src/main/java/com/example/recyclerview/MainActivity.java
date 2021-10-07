@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements AlbumAdapter.Item
     private ArrayList<Album> albumList;
     private DetailItemBinding detailItemBinding;
     private ProgressDialog progressDialog;
+    private int itemPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,8 +182,17 @@ public class MainActivity extends AppCompatActivity implements AlbumAdapter.Item
 
     @Override
     public void onItemClick(int position) {
+        this.itemPosition = position;
         int pos = position + 1;
         Log.d(TAG, "Image download clicked " + pos);
+        Toast.makeText(MainActivity.this, "Image download clicked at : " + pos, Toast.LENGTH_SHORT).show();
+        checkPermissionToSavePdf();
+        // Access item view based on RecyclerView position
+        RecyclerView.ViewHolder viewHolder = activityMainBinding.recyclerView.findViewHolderForAdapterPosition(position);
+        assert viewHolder != null;
+        View view = viewHolder.itemView;
+        AppCompatImageView etDesc = view.findViewById(R.id.image_download);
+        etDesc.setImageResource(R.drawable.ic_downloading);
     }
 
     private class DownloadTask extends AsyncTask<String, Integer, String> {
@@ -269,7 +280,7 @@ public class MainActivity extends AppCompatActivity implements AlbumAdapter.Item
             wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
             wakeLock.acquire();
             progressDialog.show();
-            Toast.makeText(context, "Download start ...", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Download start ...", Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -279,7 +290,7 @@ public class MainActivity extends AppCompatActivity implements AlbumAdapter.Item
             progressDialog.setIndeterminate(false);
             progressDialog.setMax(100);
             progressDialog.setProgress(progress[0]);
-            detailItemBinding.imageDownload.setImageResource(R.drawable.ic_downloading);
+
         }
 
         @Override
@@ -287,10 +298,14 @@ public class MainActivity extends AppCompatActivity implements AlbumAdapter.Item
             wakeLock.release();
             progressDialog.dismiss();
             if (result != null)
-                Toast.makeText(context, "Download error : " + result, Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Download error : " + result, Toast.LENGTH_SHORT).show();
             else
-                Toast.makeText(context, "File success downloaded", Toast.LENGTH_LONG).show();
-            detailItemBinding.imageDownload.setVisibility(View.GONE);
+                Toast.makeText(context, "File success downloaded", Toast.LENGTH_SHORT).show();
+                RecyclerView.ViewHolder viewHolder = activityMainBinding.recyclerView.findViewHolderForAdapterPosition(itemPosition);
+                assert viewHolder != null;
+                View view = viewHolder.itemView;
+                AppCompatImageView etDesc = view.findViewById(R.id.image_download);
+                etDesc.setVisibility(View.INVISIBLE);
 
         }
     }
