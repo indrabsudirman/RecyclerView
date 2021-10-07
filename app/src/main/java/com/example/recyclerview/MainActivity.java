@@ -185,14 +185,8 @@ public class MainActivity extends AppCompatActivity implements AlbumAdapter.Item
         this.itemPosition = position;
         int pos = position + 1;
         Log.d(TAG, "Image download clicked " + pos);
-        Toast.makeText(MainActivity.this, "Image download clicked at : " + pos, Toast.LENGTH_SHORT).show();
         checkPermissionToSavePdf();
-        // Access item view based on RecyclerView position
-        RecyclerView.ViewHolder viewHolder = activityMainBinding.recyclerView.findViewHolderForAdapterPosition(position);
-        assert viewHolder != null;
-        View view = viewHolder.itemView;
-        AppCompatImageView etDesc = view.findViewById(R.id.image_download);
-        etDesc.setImageResource(R.drawable.ic_downloading);
+
     }
 
     private class DownloadTask extends AsyncTask<String, Integer, String> {
@@ -290,6 +284,13 @@ public class MainActivity extends AppCompatActivity implements AlbumAdapter.Item
             progressDialog.setIndeterminate(false);
             progressDialog.setMax(100);
             progressDialog.setProgress(progress[0]);
+
+            // Access item view based on RecyclerView position
+            RecyclerView.ViewHolder viewHolder = activityMainBinding.recyclerView.findViewHolderForAdapterPosition(itemPosition);
+            assert viewHolder != null;
+            View view = viewHolder.itemView;
+            AppCompatImageView etDesc = view.findViewById(R.id.image_download);
+            etDesc.setImageResource(R.drawable.ic_downloading);
 
         }
 
