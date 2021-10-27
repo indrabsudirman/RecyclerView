@@ -13,13 +13,18 @@ import com.example.recyclerview.databinding.DetailItemBinding;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+* I answer this task using Java, because I haven't understand in Kotlin. But I ready to learn new such as Kotlin
+* The task I have exercised before, at first time. I have finished using AsyncTask.
+*
+*/
 
-public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder> {
+public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.EpisodeViewHolder> {
     private final ArrayList<Album> albumList;
     private ItemClickListener itemClickListener;
 
     //Constructor
-    public AlbumAdapter(ArrayList<Album> albumList, ItemClickListener itemClickListener) {
+    public EpisodeAdapter(ArrayList<Album> albumList, ItemClickListener itemClickListener) {
         this.albumList = albumList;
         this.itemClickListener = itemClickListener;
     }
@@ -46,8 +51,8 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
      */
     @NonNull
     @Override
-    public AlbumViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new AlbumViewHolder(DetailItemBinding.inflate(LayoutInflater.from(parent.getContext()),
+    public EpisodeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new EpisodeViewHolder(DetailItemBinding.inflate(LayoutInflater.from(parent.getContext()),
                 parent, false), itemClickListener);
     }
 
@@ -72,7 +77,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
      * @param position The position of the item within the adapter's data set.
      */
     @Override
-    public void onBindViewHolder(@NonNull AlbumViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull EpisodeViewHolder holder, int position) {
         final Album album = albumList.get(position);
         //Setting view
         //Resources can set from JSON Response
@@ -114,11 +119,11 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
         void onItemClick(int position);
     }
 
-    public class AlbumViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final DetailItemBinding detailItemBinding;
         ItemClickListener itemClickListener;
 
-        public AlbumViewHolder(DetailItemBinding detailItemBinding, ItemClickListener itemClickListener) {
+        public EpisodeViewHolder(DetailItemBinding detailItemBinding, ItemClickListener itemClickListener) {
             super(detailItemBinding.getRoot());
             this.detailItemBinding = detailItemBinding;
             this.itemClickListener = itemClickListener;

@@ -40,7 +40,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class MainActivity extends AppCompatActivity implements AlbumAdapter.ItemClickListener {
+public class MainActivity extends AppCompatActivity implements EpisodeAdapter.ItemClickListener {
 
     private static final String TAG = MainActivity.class.getName();
 
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements AlbumAdapter.Item
 
     private void buildRecyclerView() {
         layoutManager = new LinearLayoutManager(this);
-        albumAdapter = new AlbumAdapter(albumList, this);
+        albumAdapter = new EpisodeAdapter(albumList, this);
         activityMainBinding.recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
 
         activityMainBinding.recyclerView.setLayoutManager(layoutManager);

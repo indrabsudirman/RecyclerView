@@ -2,7 +2,7 @@ package com.example.recyclerview;
 
 public class Album {
 
-    private int albumId;
+    private long albumId;
     private int imageAlbum;
     private String titleAlbum;
     private String descAlbum;
@@ -22,7 +22,7 @@ public class Album {
         this.albumDownload = albumDownload;
     }
 
-    public int getAlbumId() {
+    public long getAlbumId() {
         return albumId;
     }
 
